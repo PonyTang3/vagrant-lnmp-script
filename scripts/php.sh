@@ -18,6 +18,12 @@ php-redis php-imagick php7.0-intl php7.0-json php-memcached
 echo "enable all the error report for develop"
 sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.0/fpm/php.ini
 sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.0/fpm/php.ini
+
+# Fix permissions for session dir
+sudo chmod -R 777 /var/lib/php/sessions
+sudo echo "opcache.revalidate_freq=0" >> /etc/php/7.0/fpm/conf.d/10-opcache.ini
+sudo echo "opcache.fast_shutdown=1" >> /etc/php/7.0/fpm/conf.d/10-opcache.ini
+
 php -v
 
 print_green "PHP installed"
